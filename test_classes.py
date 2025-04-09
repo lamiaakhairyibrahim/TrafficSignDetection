@@ -2,9 +2,9 @@ from src.data_process import DataDNN
 from split import split
 from models.CNN_model import maneual_model_cnn
 import matplotlib.pyplot as plt
+from src.convert_date_to_yolo_format import bounding
 
-
-path = r"D:\my_projects\GermanTrafficSignDetection\traffic\src\dataset\archive (1)\Train.csv"
+"""path = r"D:\my_projects\GermanTrafficSignDetection\traffic\src\dataset\archive (1)\Train.csv"
 path_folder =  r"D:\my_projects\GermanTrafficSignDetection\traffic\src\dataset\archive (1)"
 x = DataDNN()
 featuer , labels = x.read_csv(csv_file = path , path_folder= path_folder)
@@ -29,9 +29,10 @@ v = u.to_categorical()
 print(v)
 img = u.images()
 print(img)
-u.train()
+u.train()"""
 
-
+b = bounding(r"D:\my_projects\GermanTrafficSignDetection\traffic\dataset\archive (1)\Train.csv" , r"D:\my_projects\GermanTrafficSignDetection\traffic\dataset\archive (1)\label")
+b.file_bound()
 
 
 
