@@ -32,9 +32,11 @@ img = u.images()
 print(img)
 u.train()"""
 
-b = bounding()
-b.resiz_img(r"D:\my_projects\GermanTrafficSignDetection\traffic\dataset\archive (1)\Train" ,r"D:\my_projects\GermanTrafficSignDetection\traffic\dataset\archive (1)\train_yolo" , (650,650))
-b.file_bound(r"D:\my_projects\GermanTrafficSignDetection\traffic\dataset\archive (1)\Train.csv" , r"D:\my_projects\GermanTrafficSignDetection\traffic\dataset\archive (1)\Trainyolo" , 650 , 650)
+
+path_data = r"D:\my_projects\GermanTrafficSignDetection\traffic\dataset\archive (1)"
+output_path = r"D:\my_projects\GermanTrafficSignDetection\traffic\dataset"
+size = (650 , 650)
+b = bounding(path_data , output_path= output_path , new_size= size)
 
 
 
