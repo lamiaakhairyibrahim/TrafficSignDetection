@@ -4,6 +4,7 @@ from models.CNN_model import maneual_model_cnn
 import matplotlib.pyplot as plt
 from src.convert_date_to_yolo_format import bounding
 
+
 """path = r"D:\my_projects\GermanTrafficSignDetection\traffic\src\dataset\archive (1)\Train.csv"
 path_folder =  r"D:\my_projects\GermanTrafficSignDetection\traffic\src\dataset\archive (1)"
 x = DataDNN()
@@ -31,8 +32,10 @@ img = u.images()
 print(img)
 u.train()"""
 
-b = bounding(r"D:\my_projects\GermanTrafficSignDetection\traffic\dataset\archive (1)\Train.csv" , r"D:\my_projects\GermanTrafficSignDetection\traffic\dataset\archive (1)\label")
-b.file_bound()
+b = bounding()
+b.resiz_img(r"D:\my_projects\GermanTrafficSignDetection\traffic\dataset\archive (1)\Train" ,r"D:\my_projects\GermanTrafficSignDetection\traffic\dataset\archive (1)\train_yolo" , (650,650))
+b.file_bound(r"D:\my_projects\GermanTrafficSignDetection\traffic\dataset\archive (1)\Train.csv" , r"D:\my_projects\GermanTrafficSignDetection\traffic\dataset\archive (1)\Trainyolo" , 650 , 650)
+
 
 
 
