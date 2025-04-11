@@ -38,17 +38,80 @@ The dataset used is [Traffic Sign Dataset](https://www.kaggle.com/datasets/ahema
 
 ## Object Detection with YOLO
 - ##  Convert dataset to YOLO format  
-  - First, in the file CSV, I found the (x_mini, x_max, y_mini, y_max), from this, we can find the bounding box of the object in the image.
-  - width = x_max - x_mini
-  - height = y_max - y_mini
-  - x_center = x_mini + ((x_max - x_mini)/2) = (x_max +x_mini)/2
-  - y_center = y_mini + ((y_max - y_mini)/2) = (y_max +y_mini)/2
-  - and then convert this number into normalized by dividing by width and height, to yolo can able to know the place of the object in the size of the image.
-  - width = width/width of image
-  - height = height/height of image
-  - x_center = x_center / width of image
-  - y_center = y_center / hight of imege
-  - ### The shape of the file is :
-     - class_id x_center y_center width hight 
+  - 1. Resizing Images:
+Resizes all training and testing images to a specified new size and renames them based on their class and original name.
+  - 2. Generating YOLO Annotations:
+Converts bounding box annotations from CSV files (Train.csv, Test.csv) to YOLO format .txt files, with each label file named similarly to the corresponding image.
 
-- Train YOLO for detecting traffic signs  
+
+      - in the file CSV, I found the (x_mini, x_max, y_mini, y_max), from this, we can find the bounding box of the object in the image.
+      - width = x_max - x_mini
+      - height = y_max - y_mini
+      - x_center = x_mini + ((x_max - x_mini)/2) = (x_max +x_mini)/2
+      - y_center = y_mini + ((y_max - y_mini)/2) = (y_max +y_mini)/2
+      - and then convert this number into normalized by dividing by width and height, to yolo can able to know the place of the object in the size of the image.
+      - width = width/width of image
+      - height = height/height of image
+      - x_center = x_center / width of image
+      - y_center = y_center / hight of imege
+      - ### The shape of the file is :
+        - class_id x_center y_center width hight 
+
+  - 3. Creating a data.yaml File:
+Automatically generates the data.yaml file required by YOLO, including:
+
+        train: path to training images
+
+        val: path to validation images
+
+        nc: number of classes
+
+        names: list of class names
+
+  - ### Dataset Structure input:
+
+      ```Bash
+            dataset/
+            |
+            |----- Train/
+            |   |-------0/
+            |   |-------1/
+            |   |-------...
+            |
+            |----- Test/
+            |   |----img1
+            |   |----img2
+            |   |----..
+            |
+            |----- Train.csv
+            |
+            |----- Test.csv
+      ```
+  - Each folder inside Train/ represents a class and contains the corresponding images , and Test/ contains the corresponding images.
+  - The CSV files Train.csv and Test.csv contain the bounding box annotations for each image.
+  - ### Dataset Structure output:
+    ``` bash
+    dataset/
+    │
+    ├── images/
+    │   ├── train/
+    │   └── val/
+    │
+    ├── labels/
+    │   ├── train/
+    │   └── val/
+    │
+    └── data.yaml
+    ```
+  - ### How to use:
+  ``` python 
+  from your_script_file import bounding
+
+  dataset_path = 'path_to_dataset'
+  output_path = 'path_to_output_folder'
+  new_size = (width, height)
+
+  bounding(dataset_path, output_path, new_size) 
+  ```
+
+- ## Train YOLO for detecting traffic signs  
