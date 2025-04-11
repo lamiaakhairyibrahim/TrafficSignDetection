@@ -1,8 +1,8 @@
 # Traffic Sign Classification Project 🚦
-## [preprocessing](#preprocessing)
-## [Building a Custom CNN Model](#building-a-custom-cnn-model)
-## [Using a Pre-trained Model](#using-a-pre-trained-model)
-## [Object Detection with YOLO](#object-detection-with-yolo)
+- [preprocessing](#preprocessing)
+- [Building a Custom CNN Model](#building-a-custom-cnn-model)
+- [Using a Pre-trained Model](#using-a-pre-trained-model)
+- [Object Detection with YOLO](#object-detection-with-yolo)
 
 
 ## 📌 Overview
