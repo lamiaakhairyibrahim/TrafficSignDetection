@@ -60,35 +60,74 @@ class bounding:
                         cv2.imwrite(os.path.join(output_folder ,new_name) , img_resiz )
 
 
-    def file_bound(self  , path_file , output_folder_path ,width , heitht):
+    def file_bound(self  , path_file , output_folder_path ,width , height):
         os.makedirs(output_folder_path , exist_ok=True)
         data = pd.read_csv(path_file)
         # print(data.info())
         for index, row in data.iterrows():
-            width_opject = (row['Roi.X2'] - row['Roi.X1']) / width
+            
+            orig_w = row['Width']   
+            orig_h = row['Height']
+
+            scale_x = width / orig_w
+            scale_y = height / orig_h
+
+            x1 = row['Roi.X1'] * scale_x
+            x2 = row['Roi.X2'] * scale_x
+            y1 = row['Roi.Y1'] * scale_y
+            y2 = row['Roi.Y2'] * scale_y
+
+         
+            width_object = (x2 - x1) / width
+            height_object = (y2 - y1) / height
+            x_center = ((x1 + x2) / 2) / width
+            y_center = ((y1 + y2) / 2) / height
+
+            """width_opject = (row['Roi.X2'] - row['Roi.X1']) / width
             height_opject = (row['Roi.Y2'] - row['Roi.Y1']) / heitht
             x_center = ((row['Roi.X2'] + row['Roi.X1']) / 2) / width
-            y_center = ((row['Roi.Y2'] + row['Roi.Y1']) / 2 )/ heitht
+            y_center = ((row['Roi.Y2'] + row['Roi.Y1']) / 2 )/ heitht"""
+
             image_name = f"{row['ClassId']}_{os.path.splitext(os.path.basename(row['Path']))[0]}"
             label_path = os.path.join(output_folder_path , f"{image_name}.txt")
             with open(label_path , 'a'  ) as f :
-                f.write(f"{row['ClassId']} {x_center} {y_center} {width_opject} {height_opject}" )
+                f.write(f"{row['ClassId']} {x_center} {y_center} {width_object} {height_object}\n" )
 
         print(f"All YOLO label file saved in {output_folder_path}")
 
-    def file_bound_test(self  , path_file , output_folder_path ,width , heitht):
+    def file_bound_test(self  , path_file , output_folder_path ,width , height):
         os.makedirs(output_folder_path , exist_ok=True)
         data = pd.read_csv(path_file)
         # print(data.info())
+        
         for index, row in data.iterrows():
-            width_opject = (row['Roi.X2'] - row['Roi.X1']) / width
-            height_opject = (row['Roi.Y2'] - row['Roi.Y1']) / heitht
+           
+            orig_w = row['Width']   
+            orig_h = row['Height']
+
+            scale_x = width / orig_w
+            scale_y = height / orig_h
+
+         
+            x1 = row['Roi.X1'] * scale_x
+            x2 = row['Roi.X2'] * scale_x
+            y1 = row['Roi.Y1'] * scale_y
+            y2 = row['Roi.Y2'] * scale_y
+
+            width_object = (x2 - x1) / width
+            height_object = (y2 - y1) / height
+            x_center = ((x1 + x2) / 2) / width
+            y_center = ((y1 + y2) / 2) / height
+
+            """width_opject = (row['Roi.X2'] - row['Roi.X1']) / width
+            height_opject = (row['Roi.Y2'] - row['Roi.Y1']) / height
             x_center = ((row['Roi.X2'] + row['Roi.X1']) / 2) / width
-            y_center = ((row['Roi.Y2'] + row['Roi.Y1']) / 2 )/ heitht
+            y_center = ((row['Roi.Y2'] + row['Roi.Y1']) / 2 )/ height"""
+            
             image_name = f"{os.path.splitext(os.path.basename(row['Path']))[0]}"
             label_path = os.path.join(output_folder_path , f"{image_name}.txt")
             with open(label_path , 'a'  ) as f :
-                f.write(f"{row['ClassId']} {x_center} {y_center} {width_opject} {height_opject}" )
+                f.write(f"{row['ClassId']} {x_center} {y_center} {width_object} {height_object}\n" )
 
         print(f"All YOLO label file saved in {output_folder_path}")    
 

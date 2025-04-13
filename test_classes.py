@@ -2,7 +2,7 @@ from src.data_process import DataDNN
 from split import split
 from models.CNN_model import maneual_model_cnn
 import matplotlib.pyplot as plt
-from src.convert_date_to_yolo_format import bounding
+from src.convert_data_to_yolo_format import bounding
 
 
 """path = r"D:\my_projects\GermanTrafficSignDetection\traffic\src\dataset\archive (1)\Train.csv"
